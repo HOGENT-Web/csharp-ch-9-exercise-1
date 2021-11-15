@@ -1,0 +1,46 @@
+﻿<div class="field">
+    <div class="control has-icons-left">
+        <input @bind="Filter.SearchTerm" class="input" type="search" placeholder="Zoeken...">
+        <span class="icon is-left">
+            <i class="fas fa-search" aria-hidden="true"></i>
+        </span>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label has-text-grey">Categorie</label>
+    <div class="control is-expanded">
+        <div class="select is-fullwidth">
+            <select @bind="Filter.Category">
+                <option value="">Selecteer</option>
+                <option value="fresh">Vers</option>
+                <option value="frozen">Bevroren</option>
+                <option value="wooden">Hout</option>
+                <option value="ruber">Rubber</option>
+                <option value="ruber">Metaal</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="field columns">
+    <div class="column">
+        <label class="label has-text-grey">Min. Prijs</label>
+        <div class="control is-expanded has-icons-left">
+            <input @bind="Filter.MinimumPrice" class="input has-text-right" type="number" placeholder="0.00" min="0">
+            <span class="icon is-left">
+                <i class="fas fa-euro"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="column">
+        <label class="label has-text-grey">Max. Prijs</label>
+        <div class="control is-expanded has-icons-left">
+            <input @bind="Filter.MaximumPrice" class="input has-text-right" type="number" placeholder="0.00" min="0">
+            <span class="icon is-left">
+                <i class="fas fa-euro"></i>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="Domain.Common.Address">
+    <Position X="7.75" Y="3" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIIAAAACAAAAIAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Common\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Common.Entity" Collapsed="true">
+    <Position X="17.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAQAgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Common\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Common.Money">
+    <Position X="12.75" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAACAAAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Common\Money.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.ValueObject" Collapsed="true">
+    <Position X="19.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAoAAAAAAAAAAAAIAAAAAAAACAAAA=</HashCode>
+      <FileName>Common\ValueObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Customers.Customer">
+    <Position X="27.75" Y="8" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAEEAAAAAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Customers\Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_orders" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Customers.CustomerName">
+    <Position X="29.75" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Customers\CustomerName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Orders.Cart">
+    <Position X="16.25" Y="15.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAABAAAAgAAAQAACAAAAAABAAAA=</HashCode>
+      <FileName>Orders\Cart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_lines" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Orders.CartItem">
+    <Position X="21.25" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIAAAAAAAAAAAQAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Orders\CartItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Orders.CartLine">
+    <Position X="16.25" Y="13" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Orders\CartLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Orders.DeliveryDate">
+    <Position X="17" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Orders\DeliveryDate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Orders.Order">
+    <Position X="16.75" Y="8" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAQAAACAAABAQBAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Orders\Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_lines" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Orders.OrderItem">
+    <Position X="25.5" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Orders\OrderItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Orders.OrderLine">
+    <Position X="24" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Orders\OrderLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Products.Category">
+    <Position X="14" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Products.Product">
+    <Position X="7.75" Y="8" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAQAgAAAAAAAAAAQAAAAEAAACAAAIAAAACAA=</HashCode>
+      <FileName>Products\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,37 @@
+﻿<table class="table is-hoverable  is-fullwidth ">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Prijs&nbsp;<small>(&euro;)</small></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Cart.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td><input type="number" @bind="item.Amount" /></td>
+                <td class="price">@item.Price.ToString("C")</td>
+                <td>
+                    <button @onclick="_ => Cart.RemoveItem(item)" class="button is-white  is-small">
+                        <span class="icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" align="right">Totaal @Cart.Total.ToString("C")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="buttons">
+    <button class="button is-link is-fullwidth" type="submit">Bestellen</button>
+    <button @onclick="Sidepanel.Close" class="button is-light is-link is-fullwidth">Verder Winkelen</button>
+</div>
