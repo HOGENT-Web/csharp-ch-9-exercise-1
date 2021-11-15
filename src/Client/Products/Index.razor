@@ -1,0 +1,36 @@
+﻿@page "/"
+
+@if(products is null)
+{
+    <p>Loading...</p>
+} else
+{
+    <div class="columns">
+    <div class="column is-one-quarter">
+        <AuthorizeView Roles="@Roles.Administrator">
+            <div class="buttons">
+                <button class="button is-primary is-fullwidth" @onclick="OpenCreateForm">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span>Toevoegen</span>
+                </button>
+            </div>
+        </AuthorizeView>
+        <h1 class="title is-size-6 is-uppercase has-text-grey">Zoek een product</h1>
+        <ProductFilters Filter="filter" />
+        <Pager Filter="filter" TotalAmount="totalFilteredAmount"/>
+    </div>
+    <div class="column">
+        <div class="columns is-multiline">
+            @foreach (var product in products)
+            {
+                <div class="column is-half">
+                    <ProductListItem Product="product" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+}
+

@@ -1,0 +1,47 @@
+﻿<EditForm Model="@model" OnValidSubmit="@EditProductAsync">
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <div class="field">
+        <label class="label">Naam</label>
+        <div class="control">
+            <InputText class="input" @bind-Value="model.Name" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Omschrijving</label>
+        <div class="control">
+            <InputTextArea class="textarea" @bind-Value="model.Description" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Prijs</label>
+        <div class="control">
+            <InputNumber class="input" step="0.01" @bind-Value="model.Price" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Categorie</label>
+        <div class="control">
+            <InputText class="input" @bind-Value="model.Category" />
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <label class="checkbox">
+                <InputCheckbox @bind-Value="model.InStock" />
+                In Stock
+            </label>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="button is-link is-fullwidth" type="submit">Wijzigen</button>
+        <button type="button" class="button is-link is-light is-fullwidth" @onclick="Sidepanel.Close">Annuleren</button>
+    </div>
+
+</EditForm>

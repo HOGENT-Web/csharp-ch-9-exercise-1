@@ -1,0 +1,16 @@
+﻿input[type=number]{
+    max-width:2.5rem;
+    text-align:right;
+}
+
+td:not(:first-child), th:not(:first-child){
+    text-align:right;
+}
+
+    td {
+        vertical-align: middle;
+    }
+
+td.price{
+    min-width:6rem;
+}

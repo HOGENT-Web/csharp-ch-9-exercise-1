@@ -1,0 +1,20 @@
+﻿<div class="card is-clickable" >
+    <div class="card-image" @onclick="NavigateToDetail">
+        <figure class="image is-4by3">
+            <img src="@Product.Imagepath" alt="Placeholder image">
+        </figure>
+    </div>
+    <div class="card-content" @onclick="NavigateToDetail">
+        <div class="content">
+            <h1 class="title is-size-4">@Product.Name</h1>
+            <p>@Product.Price.ToString("C")</p>
+            <p>@Product.Description.Truncate(100)</p>
+        </div>
+    </div>
+    <footer class="card-footer">
+        <a @onclick="AddToCart" class="card-footer-item">Bestel</a>
+        <AuthorizeView Roles="@Roles.Administrator">
+            <a @onclick="OpenEditForm" class="card-footer-item">Wijzigen</a>
+        </AuthorizeView>
+    </footer>
+</div>
