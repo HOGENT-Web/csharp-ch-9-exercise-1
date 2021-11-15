@@ -1,4 +1,5 @@
-﻿using Persistence.Data.Configuration;
+using Persistence.Data.Configuration;
+using Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Data
@@ -9,6 +10,9 @@ namespace Persistence.Data
             : base(options)
         {
         }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
