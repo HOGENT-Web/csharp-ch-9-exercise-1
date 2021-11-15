@@ -1,6 +1,8 @@
+using Persistence.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Services.Common;
 using Services.Products;
 using Shared.Products;
+using System.Data.SqlClient;
 
 namespace Server
 {
@@ -22,6 +25,10 @@ namespace Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("SportStore"));
+            services.AddDbContext<SportStoreDbContext>(options =>
+                options.UseSqlServer(builder.ConnectionString)
+                    .EnableSensitiveDataLogging(Configuration.GetValue<bool>("Logging:EnableSqlParameterLogging")));
 
             services.AddControllersWithViews().AddFluentValidation(config =>
             {
