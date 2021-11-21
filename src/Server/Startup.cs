@@ -41,7 +41,7 @@ namespace Server
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sportstore API", Version = "v1" });
             });
             services.AddRazorPages();
-            services.AddScoped<IProductService, FakeProductService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IStorageService, BlobStorageService>();
             services.AddScoped<SportStoreDataInitializer>();
         }
