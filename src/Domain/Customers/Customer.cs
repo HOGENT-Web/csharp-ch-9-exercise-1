@@ -9,8 +9,12 @@ namespace Domain.Customers
     {
         public CustomerName Name { get; private set; }
         public Address Address { get; private set; }
-        private readonly List<Order> _orders = new();
-        public IReadOnlyList<Order> Orders => _orders.AsReadOnly();
+        public List<Order> Orders { get; set; }
+
+        private Customer()
+        {
+
+        }
 
         public Customer(CustomerName name, Address address)
         {
@@ -21,7 +25,7 @@ namespace Domain.Customers
         public Order PlaceOrder(Cart cart, DeliveryDate deliveryDate, bool hasGiftWrapping, Address shippingAddress)
         {
             var order = new Order(cart, deliveryDate, hasGiftWrapping, this, shippingAddress);
-            _orders.Add(order);
+            Orders.Add(order);
             return order;
         }
     }

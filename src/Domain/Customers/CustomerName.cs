@@ -8,6 +8,11 @@ namespace Domain.Customers
         public string Firstname { get; }
         public string Lastname { get; }
 
+        private CustomerName()
+        {
+
+        }
+
         public CustomerName(string firstname, string lastname)
         {
             Firstname = Guard.Against.NullOrEmpty(firstname, nameof(firstname));

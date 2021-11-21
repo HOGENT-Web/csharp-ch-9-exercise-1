@@ -7,6 +7,11 @@ namespace Domain.Common
     {
         public decimal Value { get; }
 
+        private Money()
+        {
+
+        }
+
         public Money(decimal value)
         {
             Value = value;

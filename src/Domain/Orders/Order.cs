@@ -9,8 +9,6 @@ namespace Domain.Orders
 {
     public class Order : Entity
     {
-        private readonly List<OrderLine> _lines = new();
-
         public DateTime OrderDate { get; }
         public DeliveryDate DeliveryDate { get; }
         public bool HasGiftWrapping { get; }
@@ -37,11 +35,10 @@ namespace Domain.Orders
             
             foreach (var line in cart.Lines)
             {
-                _lines.Add(new OrderLine(line.Product, line.Quantity));
+                Items.Add(new OrderLine(line.Product, line.Quantity));
             }
 
             cart.Clear();
-
         }
     }
 }
