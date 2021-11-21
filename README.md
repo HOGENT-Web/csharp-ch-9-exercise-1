@@ -89,3 +89,7 @@ public class SportStoreDataInitializer
 16. Implement a new `ProductService` which interacts with the database
 17. Use this new service in the `Server` (instead of the `FakeProductService`)
 18. Make sure everything works
+
+## Solution
+
+A possible solution can be found [here](https://github.com/HOGENT-Web/csharp-ch-9-exercise-1/tree/solution#solution).
