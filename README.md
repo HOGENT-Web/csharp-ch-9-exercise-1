@@ -24,7 +24,7 @@ The `Order` class also got an extra property for the `Customer`.
 
 ```{json}
 "ConnectionStrings": {
-  "SportStore": "Server=.;Database=SportStore;Trusted_Connection=True;"
+  "SportStore": "Server=(localdb)\\mssqllocaldb;Database=SportStore;Trusted_Connection=True;"
 }
 ```
 
@@ -97,7 +97,7 @@ public class SportStoreDataInitializer
 
 ```{json}
 "ConnectionStrings": {
-  "SportStore": "Server=.;Database=SportStore;Trusted_Connection=True;"
+  "SportStore": "Server=(localdb)\\mssqllocaldb;Database=SportStore;Trusted_Connection=True;"
 }
 ```
 
