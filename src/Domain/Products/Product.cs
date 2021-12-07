@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Domain.Products
 {
-    public class Product : Entity
+    public class Product : AuditableEntity
     {
         private string name;
         private Category category;
@@ -29,7 +29,7 @@ namespace Domain.Products
         public bool InStock { get; set; }
         public string ImageUrl { get; set; }
 
-        private Product()
+        protected Product()
         {
 
         }

@@ -1,10 +1,9 @@
-﻿using Shared.Products;
-using System.Linq;
-using Persistence.Data;
-using System.Threading.Tasks;
+﻿using Domain.Products;
 using Microsoft.EntityFrameworkCore;
-using Domain.Products;
-using System;
+using Persistence;
+using Shared.Products;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services.Products
 {

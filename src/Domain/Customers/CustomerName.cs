@@ -23,5 +23,10 @@ namespace Domain.Customers
             yield return Firstname.ToLower();
             yield return Lastname.ToLower();
         }
+
+        public override string ToString()
+        {
+            return $"{Firstname} {Lastname}";
+        }
     }
 }

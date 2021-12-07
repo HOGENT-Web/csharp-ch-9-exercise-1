@@ -1,4 +1,3 @@
-using Persistence.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Persistence;
 using Services.Common;
 using Services.Products;
 using Shared.Products;
@@ -47,8 +47,7 @@ namespace Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SportStoreDbContext dbContext,
-            SportStoreDataInitializer dataInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SportStoreDataInitializer dataInitializer)
         {
             if (env.IsDevelopment())
             {
