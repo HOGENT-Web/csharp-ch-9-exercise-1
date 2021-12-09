@@ -87,7 +87,7 @@ public class SportStoreDataInitializer
 ```
 15. Make this class a scoped service and inject an instance in the `Configure` method, finally call the `Seed` method
 16. Check if Entity Framework mapped every entity correctly. If not, create or update the `IEntityTypeConfiguration` for that specific entity, create a new migration, make sure the server executed the new migration and check again. Repeat this step until the database model is correct.
-    - The only optional fields are `Description`, `OrderDate`, `HasGiftWrapping` and `DeliveryDate`
+    - The only optional fields are `Description` (`Product`) and `DeliveryDate` (`Order`)
     - The `Total` in `Order` should not be persisted
 17. Implement a new `ProductService` which interacts with the database
 18. Use this new service in the `Server` (instead of the `FakeProductService`)
@@ -217,7 +217,7 @@ public class SportStoreDataInitializer
 
 15. Make this class a scoped service and inject an instance in the `Configure` method, finally call the `Seed` method
 16. Check if Entity Framework mapped every entity correctly. If not, create or update the `IEntityTypeConfiguration` for that specific entity, create a new migration, make sure the server executed the new migration and check again. Repeat this step until the database model is correct.
-    - The only optional fields are `Description`, `OrderDate`, `HasGiftWrapping` and `DeliveryDate`
+    - The only optional fields are `Description` (`Product`) and `DeliveryDate` (`Order`)
     - The `Total` in `Order` should not be persisted
 17. Implement a new `ProductService` which interacts with the database
 18. Use this new service in the `Server` (instead of the `FakeProductService`)
