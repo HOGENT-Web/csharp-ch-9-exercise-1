@@ -97,7 +97,7 @@ public class SportStoreDataInitializer
 
 ```{json}
 "ConnectionStrings": {
-  "SportStore": "Server=.;Database=SportStore;Trusted_Connection=True;"
+  "SportStore": "Server=(localdb)\\mssqllocaldb;Database=SportStore;Trusted_Connection=True;"
 }
 ```
 
