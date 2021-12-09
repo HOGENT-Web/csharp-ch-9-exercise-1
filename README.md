@@ -44,7 +44,7 @@ The `Order` class also got an extra property for the `Customer`.
 8. Create a `DbContext` named `SportStoreDbContext` in a `Data` folder in the `Persistence` project
     - This class only contains a constructor which calls the base class' constructor
 9. Initialize a connection in the `StartUp` of the `Server`
-10. Add a private default constructor for every class in the `Domain`.
+10. Add a private default constructor for every class in the `Domain`. Note not every domain class should be persisted, how do you know?
 11. Read through this documentation: [Persist value objects as owned entity types](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects#persist-value-objects-as-owned-entity-types-in-ef-core-20-and-later) and make every `ValueObject` an owned entity type.
     - Create seperate `IEntityTypeConfiguration` subclasses per class that needs modification, see the [documentation](https://www.learnentityframeworkcore.com/configuration/fluent-api#separate-configuration-classes) for more info.
     - For readonly properties, you need to specify the property in the model builder or Entity Framework won't add it to the database. An alternative is to add a private setter but this is bad practice because it's not obvious why the setter is private and it's not clear at first sight which properties are stored in the database.
@@ -163,8 +163,10 @@ dotnet add .\Services\Services.csproj reference .\Persistence\Persistence.csproj
 
 9. Initialize a connection in the `StartUp` of the `Server`
 
-10. Add a private default constructor for every class in the `Domain`.
-
+10. Add a private default constructor for every class in the `Domain`. Note not every domain class should be persisted, how do you know?
+    - Only classes that inherit from `Entity` are stored in the database
+    - Therefor every `ValueObject` that is referenced by an `Entity` needs to stored in the database
+    - Thus every class that meets one of these conditions needs a private constructor
 11. Read through this documentation: [Persist value objects as owned entity types](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects#persist-value-objects-as-owned-entity-types-in-ef-core-20-and-later) and make every `ValueObject` an owned entity type.
     - Create seperate `IEntityConfiguration` subclasses per class that needs modification, see the [documentation](https://www.learnentityframeworkcore.com/configuration/fluent-api#separate-configuration-classes) for more info.
     - For readonly properties, you need to specify the property in the model builder or Entity Framework won't add it to the database. An alternative is to add a private setter but this is bad practice because it's not obvious why the setter is private and it's not clear at first sight which properties are stored in the database.
