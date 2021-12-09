@@ -46,7 +46,7 @@ The `Order` class also got an extra property for the `Customer`.
 9. Initialize a connection in the `StartUp` of the `Server`
 10. Add a private default constructor for every class in the `Domain`.
 11. Read through this documentation: [Persist value objects as owned entity types](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects#persist-value-objects-as-owned-entity-types-in-ef-core-20-and-later) and make every `ValueObject` an owned entity type.
-    - Create seperate `IEntityConfiguration` subclasses per class that needs modification, see the [documentation](https://www.learnentityframeworkcore.com/configuration/fluent-api#separate-configuration-classes) for more info.
+    - Create seperate `IEntityTypeConfiguration` subclasses per class that needs modification, see the [documentation](https://www.learnentityframeworkcore.com/configuration/fluent-api#separate-configuration-classes) for more info.
     - For readonly properties, you need to specify the property in the model builder or Entity Framework won't add it to the database. An alternative is to add a private setter but this is bad practice because it's not obvious why the setter is private and it's not clear at first sight which properties are stored in the database.
     - Set a precision of 12 and a scale of 10 for the `Value` of class `Money`
     - Read through the [documentation](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-6.0/whatsnew#changes-to-owned-optional-dependent-handling) on how to make a `ValueObject` required. Make sure you add the required navigation property and also mark the renamed column required.
@@ -85,11 +85,13 @@ public class SportStoreDataInitializer
     }
 }
 ```
-
 15. Make this class a scoped service and inject an instance in the `Configure` method, finally call the `Seed` method
-16. Implement a new `ProductService` which interacts with the database
-17. Use this new service in the `Server` (instead of the `FakeProductService`)
-18. Make sure everything works
+16. Check if Entity Framework mapped every entity correctly. If not, create or update the `IEntityTypeConfiguration` for that specific entity, create a new migration, make sure the server executed the new migration and check again. Repeat this step until the database model is correct.
+    - The only optional fields are `Description`, `OrderDate`, `HasGiftWrapping` and `DeliveryDate`
+    - The `Total` in `Order` should not be persisted
+17. Implement a new `ProductService` which interacts with the database
+18. Use this new service in the `Server` (instead of the `FakeProductService`)
+19. Make sure everything works
 
 ## Solution
 
