@@ -23,7 +23,7 @@ namespace Persistence.Data.Configuration
                 address.Property(a => a.Country).HasColumnName("ShipsToCountry").IsRequired();
             }).Navigation(o => o.ShippingAddress).IsRequired();
             builder.HasMany(o => o.Items).WithOne().IsRequired();
-            // TODO: customer not in Order
+            builder.HasOne(o => o.Customer).WithMany(c => c.Orders).IsRequired();
             builder.Ignore(o => o.Total);
         }
     }
