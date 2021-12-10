@@ -1,6 +1,5 @@
 ﻿using Client.Extensions;
 using Shared.Products;
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace Client.Products
         }
         public async Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request)
         {
-            var response = await client.PostAsJsonAsync(endpoint,request);
+            var response = await client.PostAsJsonAsync(endpoint, request);
             return await response.Content.ReadFromJsonAsync<ProductResponse.Create>();
         }
 

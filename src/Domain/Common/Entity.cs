@@ -6,6 +6,8 @@ namespace Domain.Common
     {
         public int Id { get; init; }
         public bool IsEnabled { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         protected Entity()
         {
         }

@@ -6,7 +6,7 @@ namespace Client.Ordering
 {
     public class Cart
     {
-        private List<Item> items = new(); 
+        private List<Item> items = new();
         public IReadOnlyList<Item> Items => items.AsReadOnly();
         public event Action OnCartChanged;
         public void NotifyCartChanged() => OnCartChanged?.Invoke();
@@ -15,9 +15,9 @@ namespace Client.Ordering
         {
             var existingItem = items.SingleOrDefault(x => x.ProductId == productId);
 
-            if(existingItem == null)
+            if (existingItem == null)
             {
-                Item item = new Item(productId, name, price,1);
+                Item item = new Item(productId, name, price, 1);
                 items.Add(item);
             }
             else
@@ -43,7 +43,7 @@ namespace Client.Ordering
 
             public Item(int productId, string name, decimal price, int amount)
             {
-                ProductId = productId;  
+                ProductId = productId;
                 Name = name;
                 Price = price;
                 Amount = amount;

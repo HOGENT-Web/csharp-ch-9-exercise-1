@@ -11,7 +11,7 @@ else
             <h1 class="title is-3">
                 @product.Name
             </h1>
-            <p class="block has-text-gray is-size-5">@product.Price.ToString("C") <small>| @product.CategoryName</small></p>
+            <p class="block has-text-gray is-size-5">@product.Price.ToString("C") <small>| @product.Category.Name</small></p>
             <p class="block">@product.Description</p>
             <div class="block">
                 @if (product.IsInStock)

@@ -1,0 +1,10 @@
+﻿<label class="label">Categorie</label>
+<div class="control">
+    <InputSelect class="input" @bind-Value="@Category">
+        <option hidden>Selecteer</option>
+        @foreach (var category in categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </InputSelect>
+</div>

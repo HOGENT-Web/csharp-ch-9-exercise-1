@@ -1,6 +1,6 @@
-﻿using Domain.Common;
+﻿using Ardalis.GuardClauses;
+using Domain.Common;
 using Domain.Products;
-using Ardalis.GuardClauses;
 
 namespace Domain.Orders
 {

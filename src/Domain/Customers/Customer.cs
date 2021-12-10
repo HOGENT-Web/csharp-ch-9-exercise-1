@@ -11,11 +11,7 @@ namespace Domain.Customers
         public Address Address { get; private set; }
         public List<Order> Orders { get; set; }
 
-        private Customer()
-        {
-
-        }
-
+        private Customer() { }
         public Customer(CustomerName name, Address address)
         {
             Name = Guard.Against.Null(name, nameof(name));

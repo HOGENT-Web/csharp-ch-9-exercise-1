@@ -11,13 +11,12 @@
     <label class="label has-text-grey">Categorie</label>
     <div class="control is-expanded">
         <div class="select is-fullwidth">
-            <select @bind="Filter.Category">
+            <select @bind="Filter.CategoryId">
                 <option value="">Selecteer</option>
-                <option value="fresh">Vers</option>
-                <option value="frozen">Bevroren</option>
-                <option value="wooden">Hout</option>
-                <option value="ruber">Rubber</option>
-                <option value="ruber">Metaal</option>
+                @foreach(var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
             </select>
         </div>
     </div>

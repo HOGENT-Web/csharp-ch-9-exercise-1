@@ -5,7 +5,7 @@ namespace Client.Products.Components
     public partial class Pager
     {
         private bool hasNoMorePrevious => Filter.Page == 0;
-        private bool hasNoMoreNext => (Filter.Page +1) * Filter.Amount >= TotalAmount;
+        private bool hasNoMoreNext => (Filter.Page + 1) * Filter.Amount >= TotalAmount;
         [Parameter] public ProductFilter Filter { get; set; }
         [Parameter] public int TotalAmount { get; set; }
 

@@ -1,4 +1,3 @@
-using Persistence.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,28 +6,40 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Persistence;
+using Persistence.Triggers;
 using Services.Common;
 using Services.Products;
 using Shared.Products;
-using System.Data.SqlClient;
 
 namespace Server
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("SportStore"));
             services.AddDbContext<SportStoreDbContext>(options =>
-                options.UseSqlServer(builder.ConnectionString)
-                    .EnableSensitiveDataLogging(Configuration.GetValue<bool>("Logging:EnableSqlParameterLogging")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("SqlDatabase"));
+                if (Environment.IsDevelopment())
+                {
+                    options.EnableDetailedErrors();
+                    options.EnableSensitiveDataLogging();
+                    options.UseTriggers(options =>
+                    {
+                        options.AddTrigger<OnBeforeEntitySaved>();
+                    });
+                }
+            });
 
             services.AddControllersWithViews().AddFluentValidation(config =>
             {
@@ -40,15 +51,15 @@ namespace Server
                 c.CustomSchemaIds(x => $"{x.DeclaringType.Name}.{x.Name}");
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sportstore API", Version = "v1" });
             });
+
             services.AddRazorPages();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddProductServices();
             services.AddScoped<IStorageService, BlobStorageService>();
             services.AddScoped<SportStoreDataInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SportStoreDbContext dbContext,
-            SportStoreDataInitializer dataInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SportStoreDataInitializer dataInitializer)
         {
             if (env.IsDevelopment())
             {

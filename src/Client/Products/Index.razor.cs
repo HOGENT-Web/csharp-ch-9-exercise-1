@@ -36,7 +36,7 @@ namespace Client.Products
             ProductRequest.GetIndex request = new()
             {
                 MaximumPrice = filter.MaximumPrice,
-                Category = filter.Category,
+                CategoryId = filter.CategoryId,
                 MinimumPrice = filter.MinimumPrice,
                 SearchTerm = filter.SearchTerm,
                 Page = filter.Page,

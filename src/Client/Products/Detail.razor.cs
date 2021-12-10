@@ -44,7 +44,7 @@ namespace Client.Products
         {
             var callback = EventCallback.Factory.Create(this, GetProductAsync);
 
-            var parameters = new Dictionary<string, object> 
+            var parameters = new Dictionary<string, object>
             {
                 { nameof(Edit.ProductId), product.Id },
                 { nameof(Edit.OnProductChanged),callback  }

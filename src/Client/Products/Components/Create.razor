@@ -1,4 +1,5 @@
-﻿<EditForm Model="@product" OnValidSubmit="@CreateProductAsync">
+﻿@using Client.Products.Categories.Components
+<EditForm Model="@product" OnValidSubmit="@CreateProductAsync">
     <FluentValidationValidator />
     <ValidationSummary />
 
@@ -46,10 +47,7 @@
     </div>
 
     <div class="field">
-        <label class="label">Categorie</label>
-        <div class="control">
-            <InputText class="input" @bind-Value="product.Category" />
-        </div>
+        <CategoryInputSelect @bind-Value="product.CategoryId" />
     </div>
 
     <div class="field">

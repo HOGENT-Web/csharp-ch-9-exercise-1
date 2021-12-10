@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Shared.Products.Categories;
 
 namespace Shared.Products
 {
@@ -16,8 +17,8 @@ namespace Shared.Products
         public class Detail : Index
         {
             public bool IsEnabled { get; set; }
-            public string CategoryName { get; set; }
             public bool IsInStock { get; set; }
+            public CategoryDto.Index Category { get; set; }
         }
 
         public class Mutate
@@ -25,7 +26,7 @@ namespace Shared.Products
             public string Name { get; set; }
             public decimal Price { get; set; }
             public string Description { get; set; }
-            public string Category { get; set; }
+            public int CategoryId { get; set; }
             public bool InStock { get; set; }
             public int ImageAmount { get; set; }
 
@@ -35,8 +36,8 @@ namespace Shared.Products
                 {
                     RuleFor(x => x.Name).NotEmpty().Length(1, 250);
                     RuleFor(x => x.Price).InclusiveBetween(1, 250);
-                    RuleFor(x => x.Category).NotEmpty().Length(1, 250);
-                    RuleFor(x => x.ImageAmount).GreaterThanOrEqualTo(1);
+                    RuleFor(x => x.CategoryId).NotEmpty();
+                    //RuleFor(x => x.ImageAmount).GreaterThanOrEqualTo(1);
                 }
             }
         }

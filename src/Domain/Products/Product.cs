@@ -14,10 +14,10 @@ namespace Domain.Products
             set { name = Guard.Against.NullOrWhiteSpace(value, nameof(name)); }
         }
 
-        public Category Category 
+        public Category Category
         {
-            get => category; 
-            set => category = Guard.Against.Null(value, nameof(category)); 
+            get => category;
+            set => category = Guard.Against.Null(value, nameof(category));
         }
 
         public string Description { get; set; }
@@ -29,17 +29,13 @@ namespace Domain.Products
         public bool InStock { get; set; }
         public string ImageUrl { get; set; }
 
-        private Product()
-        {
-
-        }
-
-        public Product(string name, string description, Money price, bool inStock,string imageUrl, Category category)
+        private Product() { }
+        public Product(string name, string description, Money price, bool inStock, string imageUrl, Category category)
         {
             Name = name;
             Category = category;
             Description = description;
-            Price = Guard.Against.Null(price,nameof(price));
+            Price = Guard.Against.Null(price, nameof(price));
             InStock = inStock;
             ImageUrl = imageUrl;
         }

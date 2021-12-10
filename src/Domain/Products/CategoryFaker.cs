@@ -1,13 +1,12 @@
-﻿using Bogus;
+﻿using Domain.Common;
 
 namespace Domain.Products
 {
-    public class CategoryFaker : Faker<Category>
+    public class CategoryFaker : EntityFaker<Category>
     {
-        public CategoryFaker()
+        public CategoryFaker(bool hasRandomId = true) : base(hasRandomId)
         {
             CustomInstantiator(f => new Category(f.Commerce.ProductMaterial()));
-            RuleFor(x => x.Id, f => f.Random.Int());
         }
     }
 }

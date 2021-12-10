@@ -22,7 +22,7 @@ namespace Domain.Orders
             }
             else
             {
-                CartLine line = new (product, quantity);
+                CartLine line = new(product, quantity);
                 _lines.Add(line);
                 return line;
             }

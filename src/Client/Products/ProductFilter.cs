@@ -8,7 +8,7 @@ namespace Client.Products
         private int page;
         private int amount = 25;
         private string searchTerm;
-        private string category;
+        private int? categoryId;
         private decimal? minimumPrice;
         private decimal? maximumPrice;
 
@@ -24,12 +24,12 @@ namespace Client.Products
             }
         }
 
-        public string Category
+        public int? CategoryId
         {
-            get => category;
+            get => categoryId;
             set
             {
-                category = value;
+                categoryId = value;
                 NotifyStateChanged();
             }
         }

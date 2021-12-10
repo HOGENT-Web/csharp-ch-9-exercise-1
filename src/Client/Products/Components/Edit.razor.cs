@@ -23,7 +23,7 @@ namespace Client.Products.Components
 
             model = new ProductDto.Mutate
             {
-                Category = product.CategoryName,
+                CategoryId = product.Category.Id,
                 Description = product.Description,
                 InStock = product.IsInStock,
                 Name = product.Name,

@@ -1,74 +1,73 @@
-﻿using Shared.Products;
-using System.Linq;
-using Persistence.Data;
-using System.Threading.Tasks;
+﻿using Domain.Products;
 using Microsoft.EntityFrameworkCore;
-using Domain.Products;
+using Persistence;
+using Services.Common;
+using Shared.Products;
+using Shared.Products.Categories;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services.Products
 {
     public class ProductService : IProductService
     {
-        public ProductService(SportStoreDbContext dbContext)
+        private readonly SportStoreDbContext dbContext;
+        private readonly IStorageService storageService;
+
+        public ProductService(SportStoreDbContext dbContext, IStorageService storageService)
         {
-            _dbContext = dbContext;
-            _products = dbContext.Products;
-            _categories = dbContext.Categories;
+            this.dbContext = dbContext;
+            this.storageService = storageService;
         }
 
-        private readonly SportStoreDbContext _dbContext;
-        private readonly DbSet<Product> _products;
-        private readonly DbSet<Category> _categories;
-
-        private IQueryable<Product> GetProductById(int id) => _products
-                .AsNoTracking()
-                .Where(p => p.Id == id);
 
         public async Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request)
         {
             ProductResponse.Create response = new();
-            var category = await _categories.SingleOrDefaultAsync(c => c.Name == request.Product.Category);
-            var product = _products.Add(new Product(
-                request.Product.Name,
-                request.Product.Description,
-                request.Product.Price,
-                request.Product.InStock,
-                null,
-                category
-            ));
-            await _dbContext.SaveChangesAsync();
-            response.ProductId = product.Entity.Id;
+
+            var category = await dbContext.Categories.SingleAsync(x => x.Id == request.Product.CategoryId);
+            var imageFilename = Guid.NewGuid().ToString();
+            var imagePath = $"{storageService.StorageBaseUri}{imageFilename}";
+
+            var product = new Product(request.Product.Name, request.Product.Description, request.Product.Price, request.Product.InStock, imagePath, category);
+
+            dbContext.Products.Add(product);
+            await dbContext.SaveChangesAsync();
+
+            response.ProductId = product.Id;
+            response.UploadUri = storageService.CreateUploadUri(imageFilename);
+
             return response;
         }
 
         public async Task DeleteAsync(ProductRequest.Delete request)
         {
-            _products.RemoveIf(p => p.Id == request.ProductId);
-            await _dbContext.SaveChangesAsync();
+            dbContext.Products.RemoveIf(p => p.Id == request.ProductId);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request)
         {
             ProductResponse.Edit response = new();
-            var product = await GetProductById(request.ProductId).SingleOrDefaultAsync();
 
-            if (product is not null)
-            {
-                var model = request.Product;
-                var category = new Category(model.Category);
+            var product = await dbContext.Products
+                                          .Include(x => x.Category)
+                                          .SingleAsync(x => x.Id == request.ProductId);
 
-                // You could use a Product.Edit method here.
-                product.Name = model.Name;
-                product.Description = model.Description;
-                product.InStock = model.InStock;
-                product.Category = category;
-                product.Price = model.Price;
+            var category = await dbContext.Categories.SingleAsync(x => x.Id == request.Product.CategoryId);
 
-                _dbContext.Entry(product).State = EntityState.Modified;
-                await _dbContext.SaveChangesAsync();
-                response.ProductId = product.Id;
-            }
+            var model = request.Product;
+            // You could use a Product.Edit method here.
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.InStock = model.InStock;
+            product.Category = category;
+            product.Price = model.Price;
+            product.Category = category;
+
+            await dbContext.SaveChangesAsync();
+            response.ProductId = product.Id;
 
             return response;
         }
@@ -76,37 +75,43 @@ namespace Services.Products
         public async Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request)
         {
             ProductResponse.GetDetail response = new();
-            response.Product = await GetProductById(request.ProductId)
-                .Select(x => new ProductDto.Detail
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    Price = x.Price.Value,
-                    IsEnabled = x.IsEnabled,
-                    IsInStock = x.InStock,
-                    Imagepath = x.ImageUrl,
-                    CategoryName = x.Category.Name,
-                })
-                .SingleOrDefaultAsync();
+            response.Product = await dbContext.Products
+                    //.AsNoTracking() // Is not needed since AsNoTracking is always used when using .Select()
+                    .Select(x => new ProductDto.Detail
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Description = x.Description,
+                        Price = x.Price.Value,
+                        IsEnabled = x.IsEnabled,
+                        IsInStock = x.InStock,
+                        Imagepath = x.ImageUrl,
+                        Category = new CategoryDto.Index
+                        {
+                            Id = x.Category.Id,
+                            Name = x.Category.Name
+                        },
+                    })
+                    .SingleAsync(x => x.Id == request.ProductId);
+
             return response;
         }
 
         public async Task<ProductResponse.GetIndex> GetIndexAsync(ProductRequest.GetIndex request)
         {
             ProductResponse.GetIndex response = new();
-            var query = _products.AsQueryable().AsNoTracking();
+            var query = dbContext.Products.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
                 query = query.Where(x => x.Name.Contains(request.SearchTerm));
 
-            if (!string.IsNullOrWhiteSpace(request.Category))
-                query = query.Where(x => x.Category.Name.Equals(request.Category));
+            if (request.CategoryId.HasValue)
+                query = query.Where(x => x.Category.Id.Equals(request.CategoryId));
 
-            if (request.MinimumPrice is not null)
+            if (request.MinimumPrice.HasValue)
                 query = query.Where(x => x.Price.Value >= request.MinimumPrice);
 
-            if (request.MaximumPrice is not null)
+            if (request.MaximumPrice.HasValue)
                 query = query.Where(x => x.Price.Value <= request.MaximumPrice);
 
             if (request.OnlyActiveProducts)
@@ -114,10 +119,10 @@ namespace Services.Products
 
             response.TotalAmount = query.Count();
 
-            query = query.Take(request.Amount);
+            query = query.OrderBy(x => x.Name);
             query = query.Skip(request.Amount * request.Page);
+            query = query.Take(request.Amount);
 
-            query.OrderBy(x => x.Name);
             response.Products = await query.Select(x => new ProductDto.Index
             {
                 Id = x.Id,

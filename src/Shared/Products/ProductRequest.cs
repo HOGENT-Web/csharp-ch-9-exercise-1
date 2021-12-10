@@ -5,7 +5,7 @@ namespace Shared.Products
         public class GetIndex
         {
             public string SearchTerm { get; set; }
-            public string Category { get; set; }
+            public int? CategoryId { get; set; }
             public bool OnlyActiveProducts { get; set; }
             public decimal? MinimumPrice { get; set; }
             public decimal? MaximumPrice { get; set; }

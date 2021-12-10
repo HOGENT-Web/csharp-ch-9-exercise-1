@@ -10,11 +10,7 @@ namespace Domain.Orders
         public int Quantity { get; }
         public Money Price { get; }
 
-        private OrderLine()
-        {
-
-        }
-
+        private OrderLine() { }
         public OrderLine(Product product, int quantity)
         {
             Product = Guard.Against.Null(product, nameof(product));
