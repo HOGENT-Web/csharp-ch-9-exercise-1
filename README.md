@@ -128,7 +128,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 5.0.12
     - Microsoft.EntityFrameworkCore.Tools
 
 ```
-cd .\src\Persistence
+cd .\src\Server
 dotnet add package System.Data.SqlClient
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 5.0.12
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 5.0.12
